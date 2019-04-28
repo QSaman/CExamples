@@ -10,6 +10,13 @@ bool strtok_example(const char* ip32_str)
 {
 	const size_t len = strlen(ip32_str);
 	char* str = (char*)malloc(len + 1);
+
+	if (str == NULL)
+	{
+		perror("Cannot allocate memory");
+		return false;
+	}
+
 	long int ip32[4] = {0};
 
 	strncpy(str, ip32_str, len + 1);
