@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <limits.h>
 #include <stdbool.h>	//To use bool in C
+#include <ctype.h>
 
 #define print(x) printf("%s: %s\n", #x, x)
 
@@ -28,6 +29,13 @@ bool strtok_example(const char* ip32_str)
 	for (i = 0; i < 4 && token != NULL; token = strtok(NULL, "."), ++i)
 	{
 		char* next;
+		if (!isdigit(*token))
+		{
+			printf("%s is not a valid IP32. token '%s' is invalid. It doesn't start with a digit.\n", ip32_str, token);
+			free(str);
+			return false;
+
+		}
 		long int num = strtol(token, &next, 0);
 		if (*next != '\0')
 		{
@@ -56,7 +64,7 @@ bool strtok_example(const char* ip32_str)
 		printf("%s is not a valid IP32. It has more than 4 tokens\n", ip32_str);
 		return false;
 	}
-	printf("%ld.%ld.%ld.%ld is a valid ip32 address\n", ip32[0], ip32[1], ip32[2], ip32[3]);
+	printf("%s (%li, %li, %li, %li) is a valid ip32 address\n", ip32_str, ip32[0], ip32[1], ip32[2], ip32[3]);
 	free(str);
 	return true;
 }
@@ -68,4 +76,7 @@ int main(void)
 	strtok_example("080.0xf.0.1");	//Note in oct every digit should be between 0 and 7.
 	strtok_example("192.168.0.0.10");
 	strtok_example("192.168");
+	strtok_example("+192.168.0.1");
+	strtok_example("-192.168.0.1");
+	strtok_example("192x43.168.0.1");
 }
