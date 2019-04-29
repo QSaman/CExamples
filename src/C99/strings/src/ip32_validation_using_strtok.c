@@ -76,7 +76,7 @@ int main(void)
 	validate_ip32("080.0xf.0.1");	//Note in oct every digit should be between 0 and 7.
 	validate_ip32("192.168.0.0.10");
 	validate_ip32("192.168");
-	validate_ip32("+192.168.0.1");
+	validate_ip32("+192.168.0.1"); //Since it starts with a '+' character, it's not a valid IP32
 	validate_ip32("-192.168.0.1");
 	validate_ip32("192x43.168.0.1");
 	validate_ip32("x192.168.0.1");
