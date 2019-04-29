@@ -8,7 +8,7 @@ bool validate_ip32(const char* ip32_str)
 	char token[4][5] = {'\0'};	//maximum token[i] can be 255 (decminal), 0xff (hex), 0773 (oct)
 	long int ip32[4] = {0};
 	char ch;
-	int cnt = sscanf(ip32_str, "%[^.].%[^.].%[^.].%[^.]%c", token[0], token[1], token[2], token[3], &ch);
+	int cnt = sscanf(ip32_str, "%4[^.].%4[^.].%4[^.].%4[^.]%c", token[0], token[1], token[2], token[3], &ch);
 	if (cnt == EOF || cnt != 4)
 	{
 		printf("%s is not a valid IP32. sscanf returned %i\n", ip32_str, cnt);
@@ -52,9 +52,10 @@ int main(void)
 	validate_ip32("080.0xf.0.1");	//Note in oct every digit should be between 0 and 7. sscanf return 1
 	validate_ip32("192.168.0.0.10");	//sscanf return 5
 	validate_ip32("192.168");	//sscanf return 2
-	validate_ip32("+192.168.0.1");	//sscanf return 4. Altough it starts with '+', it's a valid IP32!
+	validate_ip32("+192.168.0.1");	//sscanf return 4. Since it starts with a + character, it's invalid
 	validate_ip32("-192.168.0.1");	//sscanf return 4
 	validate_ip32("192x43.168.0.1");	//sscanf return 1
 	validate_ip32("x192.168.0.1");	//sscanf return 0
 	validate_ip32("");	//sscanf return -1 (EOF)
+	validate_ip32("192192.168.0.0");	//sscanf return 1
 }

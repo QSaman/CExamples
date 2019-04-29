@@ -37,4 +37,5 @@ int main(void)
 	validate_ip32("192x43.168.0.1");	//sscanf return 1
 	validate_ip32("x192.168.0.1");	//sscanf return 0
 	validate_ip32("");	//sscanf return -1 (EOF)
+	validate_ip32("192192.168.0.0");	//sscanf return 1
 }

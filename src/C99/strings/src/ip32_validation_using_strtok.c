@@ -81,4 +81,5 @@ int main(void)
 	validate_ip32("192x43.168.0.1");
 	validate_ip32("x192.168.0.1");
 	validate_ip32("");
+	validate_ip32("192192.168.0.0");
 }
