@@ -9,7 +9,7 @@
 
 #define print(x) printf("%s: %s\n", #x, x)
 
-bool strtok_example(const char* ip32_str)
+bool validate_ip32(const char* ip32_str)
 {
 	const size_t len = strlen(ip32_str);
 	char* str = (char*)malloc(len + 1);
@@ -71,12 +71,14 @@ bool strtok_example(const char* ip32_str)
 
 int main(void)
 {
-	strtok_example("192.168.0.1");
-	strtok_example("010.0xf.0.1");
-	strtok_example("080.0xf.0.1");	//Note in oct every digit should be between 0 and 7.
-	strtok_example("192.168.0.0.10");
-	strtok_example("192.168");
-	strtok_example("+192.168.0.1");
-	strtok_example("-192.168.0.1");
-	strtok_example("192x43.168.0.1");
+	validate_ip32("192.168.0.1");
+	validate_ip32("010.0xf.0.1");
+	validate_ip32("080.0xf.0.1");	//Note in oct every digit should be between 0 and 7.
+	validate_ip32("192.168.0.0.10");
+	validate_ip32("192.168");
+	validate_ip32("+192.168.0.1");
+	validate_ip32("-192.168.0.1");
+	validate_ip32("192x43.168.0.1");
+	validate_ip32("x192.168.0.1");
+	validate_ip32("");
 }
