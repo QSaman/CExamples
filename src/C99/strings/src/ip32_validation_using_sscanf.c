@@ -32,7 +32,7 @@ int main(void)
 	validate_ip32("080.0xf.0.1");	//Note in oct every digit should be between 0 and 7. sscanf return 1
 	validate_ip32("192.168.0.0.10");	//sscanf return 5
 	validate_ip32("192.168");	//sscanf return 2
-	validate_ip32("+192.168.0.1");	//sscanf return 4. Altough it starts with '+', it's a valid IP32!
+	validate_ip32("+192.168.0.1");	//sscanf return 4. Altough it starts with '+', it's a valid IP32! See ip32_validation_using_sscanfv2.c for a solution
 	validate_ip32("-192.168.0.1");	//sscanf return 4
 	validate_ip32("192x43.168.0.1");	//sscanf return 1
 	validate_ip32("x192.168.0.1");	//sscanf return 0
