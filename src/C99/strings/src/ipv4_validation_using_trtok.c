@@ -9,9 +9,9 @@
 
 #define print(x) printf("%s: %s\n", #x, x)
 
-bool validate_ip32(const char* ip32_str)
+bool validate_ipv4(const char* ipv4_str)
 {
-	const size_t len = strlen(ip32_str);
+	const size_t len = strlen(ipv4_str);
 	char* str = (char*)malloc(len + 1);
 
 	if (str == NULL)
@@ -20,9 +20,9 @@ bool validate_ip32(const char* ip32_str)
 		return false;
 	}
 
-	long int ip32[4] = {0};
+	long int ipv4[4] = {0};
 
-	strncpy(str, ip32_str, len + 1);
+	strncpy(str, ipv4_str, len + 1);
 	char* token = strtok(str, ".");
 
 	int i;
@@ -31,7 +31,7 @@ bool validate_ip32(const char* ip32_str)
 		char* next;
 		if (!isdigit(*token))
 		{
-			printf("%s is not a valid IP32. token '%s' is invalid. It doesn't start with a digit.\n", ip32_str, token);
+			printf("%s is not a valid ipv4. token '%s' is invalid. It doesn't start with a digit.\n", ipv4_str, token);
 			free(str);
 			return false;
 
@@ -39,47 +39,47 @@ bool validate_ip32(const char* ip32_str)
 		long int num = strtol(token, &next, 0);
 		if (*next != '\0')
 		{
-			printf("%s is not a valid IP32. token '%s' is invalid\n", ip32_str, token);
+			printf("%s is not a valid ipv4. token '%s' is invalid\n", ipv4_str, token);
 			free(str);
 			return false;
 		}
 
 		if (num < 0 || num > 255)
 		{
-			printf("%s is not a valid IP32. %li (%ld) is not in range\n", ip32_str, num, num);
+			printf("%s is not a valid ipv4. %li (%ld) is not in range\n", ipv4_str, num, num);
 			free(str);
 			return false;
 		}
 
-		ip32[i] = num;
+		ipv4[i] = num;
 	}
 	if (i != 4)
 	{
-		printf("%s is not a valid IP32. token numbers: %i\n", ip32_str, i);
+		printf("%s is not a valid ipv4. token numbers: %i\n", ipv4_str, i);
 		free(str);
 		return false;
 	}
 	if (token != NULL)
 	{
-		printf("%s is not a valid IP32. It has more than 4 tokens\n", ip32_str);
+		printf("%s is not a valid ipv4. It has more than 4 tokens\n", ipv4_str);
 		return false;
 	}
-	printf("%s (%li, %li, %li, %li) is a valid ip32 address\n", ip32_str, ip32[0], ip32[1], ip32[2], ip32[3]);
+	printf("%s (%li, %li, %li, %li) is a valid ipv4 address\n", ipv4_str, ipv4[0], ipv4[1], ipv4[2], ipv4[3]);
 	free(str);
 	return true;
 }
 
 int main(void)
 {
-	validate_ip32("192.168.0.1");
-	validate_ip32("010.0xf.0.1");
-	validate_ip32("080.0xf.0.1");	//Note in oct every digit should be between 0 and 7.
-	validate_ip32("192.168.0.0.10");
-	validate_ip32("192.168");
-	validate_ip32("+192.168.0.1"); //Since it starts with a '+' character, it's not a valid IP32
-	validate_ip32("-192.168.0.1");
-	validate_ip32("192x43.168.0.1");
-	validate_ip32("x192.168.0.1");
-	validate_ip32("");
-	validate_ip32("192192.168.0.0");
+	validate_ipv4("192.168.0.1");
+	validate_ipv4("010.0xf.0.1");
+	validate_ipv4("080.0xf.0.1");	//Note in oct every digit should be between 0 and 7.
+	validate_ipv4("192.168.0.0.10");
+	validate_ipv4("192.168");
+	validate_ipv4("+192.168.0.1"); //Since it starts with a '+' character, it's not a valid ipv4
+	validate_ipv4("-192.168.0.1");
+	validate_ipv4("192x43.168.0.1");
+	validate_ipv4("x192.168.0.1");
+	validate_ipv4("");
+	validate_ipv4("192192.168.0.0");
 }
